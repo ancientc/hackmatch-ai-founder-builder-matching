@@ -207,7 +207,7 @@ with an OK button the user skips to EDIT-PROFILE screeen
 * 🤲 what you can help with (optional)
 button SUBMIT checks input, if everything is all right jump to APP-MAIN-MENU
 
-##APP-MAIN-MENU
+## APP-MAIN-MENU
 
 **🤝 Collaborate** COLLABORATE-RESULTS
 **🧠 Get Help** GET-HELP-REQUEST-LIST  /   **See questions/request** BROWSE-HELP-REQUESTS-LIST
