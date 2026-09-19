@@ -172,7 +172,7 @@ function CommunityApp() {
             <h1>🚀 {state!.community.name}</h1>
             <p>✨ Enter your details, find the right person.</p>
             <p>{state!.community.description}</p>
-            <button className="accent" onClick={() => setScreen("EDIT-PROFILE")}>👍 OK</button>
+            <button className="accent" onClick={() => setScreen("EDIT-PROFILE")}>👍 OK, give data to get data</button>
             <p className="muted">🪑 {state!.community.whenWhere}</p>
           </>
         );
