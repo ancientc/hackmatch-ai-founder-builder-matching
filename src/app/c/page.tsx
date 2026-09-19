@@ -1,6 +1,8 @@
 "use client";
 
-import { use, useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { apiGet, apiPost } from "@/lib/api";
 import type { Community, HelpRequest, Match, Product, Profile } from "@/lib/types";
 
 type Screen =
@@ -56,8 +58,8 @@ const PROFILE_FIELDS: { key: keyof ProfileForm; label: string; max: number; line
   { key: "lookingFor", label: "👥 Who you are looking for (optional)", max: 500, lines: 2 },
 ];
 
-export default function CommunityApp({ params }: { params: Promise<{ communityId: string }> }) {
-  const { communityId } = use(params);
+function CommunityApp() {
+  const communityId = useSearchParams().get("c") ?? "";
   const storageKey = `hackmatch:profile:${communityId}`;
 
   const [screen, setScreen] = useState<Screen>("INTRO");
@@ -79,16 +81,16 @@ export default function CommunityApp({ params }: { params: Promise<{ communityId
   const [viewedProfile, setViewedProfile] = useState<Profile | null>(null);
 
   const refresh = useCallback(async () => {
-    const response = await fetch(`/api/state?communityId=${communityId}`);
-    const data = await response.json();
-    if (!response.ok) {
-      setError(data.error ?? "Could not load community");
+    try {
+      const data = await apiGet<State>(`/api/state?communityId=${communityId}`);
+      setState(data);
+      setLoading(false);
+      return data;
+    } catch {
+      setError("Could not load community");
       setLoading(false);
       return null;
     }
-    setState(data as State);
-    setLoading(false);
-    return data as State;
   }, [communityId]);
 
   useEffect(() => {
@@ -116,17 +118,12 @@ export default function CommunityApp({ params }: { params: Promise<{ communityId
 
   async function post<T>(url: string, body: unknown): Promise<T | null> {
     setError("");
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      setError(data.error ?? "Something went wrong");
+    try {
+      return await apiPost<T>(url, body);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Something went wrong");
       return null;
     }
-    return data as T;
   }
 
   async function saveProfile() {
@@ -160,7 +157,10 @@ export default function CommunityApp({ params }: { params: Promise<{ communityId
   const topbar = (
     <div className="topbar">
       <strong>🚀 {state.community.name}</strong>
-      {me ? <span className="muted">👤 {me.name}</span> : null}
+      <span className="row">
+        {me ? <span className="muted">👤 {me.name}</span> : null}
+        <button onClick={() => refresh()}>🔄</button>
+      </span>
     </div>
   );
 
@@ -173,6 +173,7 @@ export default function CommunityApp({ params }: { params: Promise<{ communityId
             <p>✨ Enter your details, find the right person.</p>
             <p>{state!.community.description}</p>
             <button className="accent" onClick={() => setScreen("EDIT-PROFILE")}>👍 OK</button>
+            <p className="muted">🪑 {state!.community.whenWhere}</p>
           </>
         );
 
@@ -206,7 +207,7 @@ export default function CommunityApp({ params }: { params: Promise<{ communityId
             )}
             <div className="row" style={{ marginTop: 18 }}>
               <button className="accent" onClick={saveProfile}>✅ Submit</button>
-              {me ? <button onClick={() => setScreen("APP-MAIN-MENU")}>✖️ Cancel</button> : null}
+              <button onClick={() => setScreen(me ? "APP-MAIN-MENU" : "INTRO")}>✖️ Cancel</button>
             </div>
           </>
         );
@@ -623,7 +624,9 @@ export default function CommunityApp({ params }: { params: Promise<{ communityId
             <h2>🚀 {current.name}</h2>
             <div className="card">
               <p>{current.description}</p>
-              {current.link ? <code>{current.link}</code> : null}
+              {current.link ? (
+                <a href={current.link} target="_blank" rel="noreferrer"><code>{current.link}</code></a>
+              ) : null}
               <div className="muted" style={{ marginTop: 8 }}>👤 {profileName(current.ownerId)}</div>
             </div>
             <label htmlFor="feedback">💬 My feedback</label>
@@ -764,5 +767,13 @@ export default function CommunityApp({ params }: { params: Promise<{ communityId
       {renderScreen()}
       {error ? <div className="error">{error}</div> : null}
     </main>
+  );
+}
+
+export default function CommunityPage() {
+  return (
+    <Suspense fallback={<p>⏳ Loading…</p>}>
+      <CommunityApp />
+    </Suspense>
   );
 }

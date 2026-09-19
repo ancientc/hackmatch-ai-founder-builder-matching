@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { apiGet, apiPost } from "@/lib/api";
 import type { Community } from "@/lib/types";
 
 export default function HomePage() {
@@ -13,24 +14,18 @@ export default function HomePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("/api/communities")
-      .then((response) => response.json())
+    apiGet<Community[]>("/api/communities")
       .then(setCommunities)
       .catch(() => setError("Could not load communities"));
   }, []);
 
   async function create() {
-    const response = await fetch("/api/communities", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, description, whenWhere }),
-    });
-    const data = await response.json();
-    if (!response.ok) {
-      setError(data.error ?? "Could not create community");
-      return;
+    try {
+      const created = await apiPost<Community>("/api/communities", { name, description, whenWhere });
+      router.push(`/admin/?c=${created.id}`);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not create community");
     }
-    router.push(`/c/${data.id}/admin`);
   }
 
   return (
@@ -55,7 +50,7 @@ export default function HomePage() {
       <h2>👥 Existing communities</h2>
       {communities.length === 0 ? <p>No communities yet.</p> : null}
       {communities.map((community) => (
-        <div key={community.id} className="card clickable" onClick={() => router.push(`/c/${community.id}`)}>
+        <div key={community.id} className="card clickable" onClick={() => router.push(`/c/?c=${community.id}`)}>
           <div className="between">
             <div>
               <h3>{community.name}</h3>
