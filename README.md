@@ -187,104 +187,191 @@ Start a conversation.
 
 ---
 # Exact screen plan
-Here screens are listed with possible connections
-Process starts with a user creating a community like "BUDAPEST AI HACKATON"
-Users can get to the intro screen by scanning a QR code or getting the link
+
+Screens are listed with their connections. Every screen has a **Back** button unless stated otherwise, and every editor has **Submit** and **Cancel**.
+
+The process starts with an organizer creating a community like "BUDAPEST AI HACKATON".
+Participants reach the intro screen by scanning the community QR code or opening its link.
+
+## CREATE-COMMUNITY (organizer)
+
+* 🏷️ community name (1 line, max 100 chars)
+* 📝 short description (max 500 chars)
+* 📅 date / location (optional, max 200 chars)
+
+Button CREATE → COMMUNITY-ADMIN
+
+## COMMUNITY-ADMIN (organizer)
+
+* community name and description (read only)
+* 🔗 join link
+* 📱 join QR code (generated from the join link)
+* 👥 participant count
+
+Button copy link, Button EDIT-PROFILE (organizer joins as a participant too)
+
+## ENTRY (no UI)
+
+Opening the join link resolves the entry point:
+
+* profile already exists for this community on this device → **APP-MAIN-MENU**
+* otherwise → **INTRO**
 
 ## INTRO
 
-First screen that user sees after scannin QR code
-        basically showing the plan
-        "enter your details, find the right person"
-with an OK button the user skips to EDIT-PROFILE screeen
+First screen a user sees after scanning the QR code.
+Shows the community name and the plan: *"Enter your details, find the right person."*
+
+Button OK → EDIT-PROFILE
 
 ## EDIT-PROFILE
 
-* 👤 name
-* 🪪 title
-* 🪑 where exactly you are
-* ❤️ your interests
-* 🛠️ your skills
-* 🚀 what you're building (optional)
-* 🤲 what you can help with (optional)
-button SUBMIT checks input, if everything is all right jump to APP-MAIN-MENU
+* 👤 name (1 line, max 100 chars, required)
+* 🪪 title (1 line, max 100 chars, required)
+* 🪑 where exactly you are (1 line, max 200 chars, required)
+* ❤️ your interests (max 500 chars, required)
+* 🛠️ your skills (max 500 chars, required)
+* 📚 your experience (max 1000 chars, optional)
+* 🚀 what you're building (max 1000 chars, optional)
+* 🤲 what you can help with (max 500 chars, optional)
+* 🧩 what you need help with (max 500 chars, optional)
+* 👥 who you are looking for (max 500 chars, optional)
+
+Button SUBMIT checks input; if everything is all right → APP-MAIN-MENU.
+Button CANCEL → APP-MAIN-MENU (only when a profile already exists).
 
 ## APP-MAIN-MENU
 
-**🤝 Collaborate** COLLABORATE-RESULTS
-**🧠 Get Help** GET-HELP-REQUEST-LIST  /   **See questions/request** BROWSE-HELP-REQUESTS-LIST
-**🧪 Test My Product** TEST-MY-PRODUCT-LIST /  **Test the product of others** TEST-PRODUCTS-OF-OTHERS-LIST 
-** Edit own profile** EDIT-PROFILE /  ** Browse other profiles ** BROWSE-PROFILES-LIST
+* **🤝 Collaborate** → COLLABORATE-RESULTS
+* **🧠 Get Help** → GET-HELP-REQUEST-LIST   /   **👀 See questions/requests** → BROWSE-HELP-REQUESTS-LIST
+* **🧪 Test My Product** → TEST-MY-PRODUCT-LIST   /   **🔬 Test the products of others** → TEST-PRODUCTS-OF-OTHERS-LIST
+* **✏️ Edit own profile** → EDIT-PROFILE   /   **👥 Browse other profiles** → BROWSE-PROFILES-LIST
 
 ## COLLABORATE-RESULTS
 
-Based on your interests and skills these are the people that can be interesting for you:
-results with estimated percentages
+"Based on your interests and skills these are the people that can be interesting for you."
+
+* list of people with estimated match percentage, sorted descending
+* click an item → MATCH-DETAILS
+* empty state: "No matches yet — more people are still joining."
+
+Button back (APP-MAIN-MENU)
+
+## MATCH-DETAILS
+
+Shared by COLLABORATE-RESULTS and GET-HELP-RESULTS.
+
+* 👤 name, 🪪 title, 🪑 location
+* 🔥 match percentage
+* 💡 why you should meet (explanation)
+* 🧩 complementary skills (you ←→ them)
+* 💬 conversation starter
+
+Button view full profile → BROWSE-PROFILES-DETAILS, Button back
 
 ## GET-HELP-REQUEST-LIST
 
--list of my help requests
-Button back
-Button create new (GET-HELP-REQUEST-EDIT)
+* list of my help requests
+* click an item → GET-HELP-REQUEST-EDIT (edit existing, with its comments)
+* Button create new → GET-HELP-REQUEST-EDIT (empty)
+* Button delete on each item
+
+Button back (APP-MAIN-MENU)
 
 ## GET-HELP-REQUEST-EDIT
 
-Text field three lines: What do you need help with?
-Button submit (to results)
--list of comments from others
+Used for both new and existing requests.
+
+* text field, three lines, max 1000 chars: "What do you need help with?"
+* list of comments from others (only shown for an existing request; read only)
+
+Button SUBMIT → GET-HELP-RESULTS, Button CANCEL → GET-HELP-REQUEST-LIST
 
 ## GET-HELP-RESULTS
 
-These people may be able to help
--results with percentages
-Button back (APP-MAIN-MENU), button reformulate request (to GET-HELP-REQUEST with same questions)
+"These people may be able to help."
+
+* list of people with match percentage
+* click an item → MATCH-DETAILS
+* empty state: "Nobody matched yet — try reformulating your request."
+
+Button back (APP-MAIN-MENU), Button reformulate request → GET-HELP-REQUEST-EDIT (same request, prefilled)
 
 ## BROWSE-HELP-REQUESTS-LIST
 
--list of help requests
+* list of all help requests in the community with their author
+* click an item → BROWSE-HELP-REQUESTS-DETAILS
+
 Button back (APP-MAIN-MENU)
 
 ## BROWSE-HELP-REQUESTS-DETAILS
 
-help request fields (read only)
-my comment (changeable)
--list of comments from others
-Button back 
+* help request fields (read only) + author (click → BROWSE-PROFILES-DETAILS)
+* my comment (max 1000 chars, changeable) + Button SUBMIT comment
+* list of comments from others (read only)
+
+Button back (BROWSE-HELP-REQUESTS-LIST)
 
 ## TEST-MY-PRODUCT-LIST
 
--list of my products
-BUTTON CREATE NEW PRODUCT
+* list of my products with their feedback count
+* click an item → TEST-MY-PRODUCT-DETAILS (edit existing)
+* Button CREATE NEW PRODUCT → TEST-MY-PRODUCT-DETAILS (empty)
+* Button delete on each item
+
+Button back (APP-MAIN-MENU)
 
 ## TEST-MY-PRODUCT-DETAILS (used for new product and change product)
 
-Text field one line 200 chars: name
-Text field five lines max 3000 chars: description
-test field max 300 chars: link to your product
+* text field one line, max 200 chars: name
+* text field five lines, max 3000 chars: description
+* text field, max 300 chars: link to your product
+* list of feedback received from others (read only, only for an existing product)
 
-## TEST-PRODUCTS-OF-OTHERS-LIST 
+Button SUBMIT → TEST-MY-PRODUCT-LIST, Button CANCEL → TEST-MY-PRODUCT-LIST
 
--list of all products with owner and details showing (if clicked on go to 
+## TEST-PRODUCTS-OF-OTHERS-LIST
+
+* list of all products of other people, with owner and short description
+* click an item → TEST-PRODUCTS-OF-OTHERS-DETAILS
+
+Button back (APP-MAIN-MENU)
 
 ## TEST-PRODUCTS-OF-OTHERS-DETAILS
 
-read only fields:
-Text field one line 200 chars: name
-Text field five lines max 3000 chars: description
-test field max 300 chars: link to your product
-my feedback:
-Text field my feedback 3000 chars (changeable)
-list of other feedback (ready only)
+Read only fields:
+
+* name, description, link to the product
+* owner (click → BROWSE-PROFILES-DETAILS)
+
+Editable:
+
+* 💬 my feedback (max 3000 chars) + Button SUBMIT feedback
+
+* list of other feedback (read only)
+
+Button back (TEST-PRODUCTS-OF-OTHERS-LIST)
 
 ## BROWSE-PROFILES-LIST
 
--list of profiles in the community
+* list of profiles in the community (name, title, location)
+* click an item → BROWSE-PROFILES-DETAILS
+
+Button back (APP-MAIN-MENU)
 
 ## BROWSE-PROFILES-DETAILS
 
--read only fields from EDIT-PROFILE
--list of help requests
--list of test my products
+* read only fields from EDIT-PROFILE
+* list of that person's help requests (click → BROWSE-HELP-REQUESTS-DETAILS)
+* list of that person's products (click → TEST-PRODUCTS-OF-OTHERS-DETAILS)
+
+Button back (BROWSE-PROFILES-LIST)
+
+## Common states
+
+Every list and result screen defines a loading state, an empty state and an error state.
+Matching runs asynchronously, so result screens show a spinner while matches are computed.
+
 ---
 
 # 🎬 The Demo
@@ -325,9 +412,15 @@ It's:
 
 ```yaml
 name: Alex
+title: 🪪 Full-stack AI engineer
+location: 🪑 Table 12, main hall
 
 building:
   🚀 AI startup idea validation tool
+
+experience:
+  - 📚 3 years building LLM products
+  - 📚 shipped two developer tools
 
 skills:
   - 💻 TypeScript
