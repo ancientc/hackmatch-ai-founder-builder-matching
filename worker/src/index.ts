@@ -85,6 +85,40 @@ async function loadProfile(env: Env, id: string): Promise<Profile | null> {
   return row ? rowToProfile(row) : null;
 }
 
+async function loadRequest(env: Env, id: string): Promise<HelpRequest | null> {
+  const row = await env.DB.prepare("SELECT * FROM help_requests WHERE id = ?")
+    .bind(id)
+    .first<Record<string, unknown>>();
+  if (!row) return null;
+  const comments = await commentsFor(env, "request", [id]);
+  return {
+    id: row.id as string,
+    communityId: row.community_id as string,
+    authorId: row.author_id as string,
+    text: row.text as string,
+    comments: comments.get(id) ?? [],
+    createdAt: row.created_at as number,
+  };
+}
+
+async function loadProduct(env: Env, id: string): Promise<Product | null> {
+  const row = await env.DB.prepare("SELECT * FROM products WHERE id = ?")
+    .bind(id)
+    .first<Record<string, unknown>>();
+  if (!row) return null;
+  const feedback = await commentsFor(env, "product", [id]);
+  return {
+    id: row.id as string,
+    communityId: row.community_id as string,
+    ownerId: row.owner_id as string,
+    name: row.name as string,
+    description: row.description as string,
+    link: row.link as string,
+    feedback: feedback.get(id) ?? [],
+    createdAt: row.created_at as number,
+  };
+}
+
 async function getState(env: Env, communityId: string) {
   const communityRow = await env.DB.prepare("SELECT * FROM communities WHERE id = ?")
     .bind(communityId)
@@ -216,7 +250,9 @@ async function handleRequests(env: Env, body: Record<string, unknown>) {
         .bind(text, requestId)
         .run();
       if (!updated.meta.changes) return fail("Request not found", 404);
-      return json({ id: requestId, text });
+      const saved = await loadRequest(env, requestId);
+      if (!saved) return fail("Request not found", 404);
+      return json(saved);
     }
     const request = {
       id: crypto.randomUUID(),
@@ -256,7 +292,9 @@ async function handleRequests(env: Env, body: Record<string, unknown>) {
     )
       .bind(comment.id, String(body.requestId ?? ""), comment.authorId, comment.text, comment.createdAt)
       .run();
-    return json(comment);
+    const updated = await loadRequest(env, String(body.requestId ?? ""));
+    if (!updated) return fail("Help request not found", 404);
+    return json(updated);
   }
 
   return fail("Unknown action");
@@ -278,7 +316,9 @@ async function handleProducts(env: Env, body: Record<string, unknown>) {
         .bind(name, description, link, productId)
         .run();
       if (!updated.meta.changes) return fail("Product not found", 404);
-      return json({ id: productId, name, description, link });
+      const saved = await loadProduct(env, productId);
+      if (!saved) return fail("Product not found", 404);
+      return json(saved);
     }
     const product = {
       id: crypto.randomUUID(),
@@ -328,7 +368,9 @@ async function handleProducts(env: Env, body: Record<string, unknown>) {
     )
       .bind(feedback.id, String(body.productId ?? ""), feedback.authorId, feedback.text, feedback.createdAt)
       .run();
-    return json(feedback);
+    const updated = await loadProduct(env, String(body.productId ?? ""));
+    if (!updated) return fail("Product not found", 404);
+    return json(updated);
   }
 
   return fail("Unknown action");
