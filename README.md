@@ -196,8 +196,9 @@ First screen that user sees after scannin QR code
         "enter your details, find the right person"
 with an OK button the user skips to CREATE-PROFILE screeen
 
-##CREATE-PROFILE
-* 🪪 who you are
+##EDIT-PROFILE
+* 🪪 name
+* 🪪 title
 * 🪑 where exactly you are
 * ❤️ your interests
 * 🛠️ your skills
@@ -207,12 +208,68 @@ button SUBMIT checks input, if everything is all right jump to APP-MAIN-MENU
 
 ##APP-MAIN-MENU
 options
-**🤝 Collaborate**
-**🧠 Get Help**   /   **See questions/request**
-**🧪 Test My Product**  /  **Test the product of others**
-** Edit own profile**  /  ** Browse other profiles **
+**🤝 Collaborate** COLLABORATE-RESULTS
+**🧠 Get Help** GET-HELP-REQUEST-LIST  /   **See questions/request** BROWSE-HELP-REQUESTS-LIST
+**🧪 Test My Product** TEST-MY-PRODUCT-LIST /  **Test the product of others** TEST-PRODUCTS-OF-OTHERS-LIST 
+** Edit own profile** EDIT-PROFILE /  ** Browse other profiles ** BROWSE-PROFILES
 
-##COLLABORATE
+##COLLABORATE-RESULTS
+Based on your interests and skills these are the people that can be interesting for you:
+results with estimated percentages
+
+##GET-HELP-REQUEST-LIST
+-list of my help requests
+Button back
+Button create new (GET-HELP-REQUEST-EDIT)
+
+##GET-HELP-REQUEST-EDIT
+Text field three lines: What do you need help with?
+Button submit (to results)
+-list of comments from others
+
+##GET-HELP-RESULTS
+These people may be able to help
+-results with percentages
+Button back (APP-MAIN-MENU), button reformulate request (to GET-HELP-REQUEST with same questions)
+
+##BROWSE-HELP-REQUESTS-LIST
+-list of help requests
+Button back (APP-MAIN-MENU)
+
+##BROWSE-HELP-REQUESTS-DETAILS
+help request fields (read only)
+my comment (changeable)
+-list of comments from others
+Button back 
+
+##TEST-MY-PRODUCT-LIST
+-list of my products
+BUTTON CREATE NEW PRODUCT
+
+##TEST-MY-PRODUCT-DETAILS (used for new product and change product)
+Text field one line 200 chars: name
+Text field five lines max 3000 chars: description
+test field max 300 chars: link to your product
+
+##TEST-PRODUCTS-OF-OTHERS-LIST 
+-list of all products with owner and details showing (if clicked on go to 
+
+##TEST-PRODUCTS-OF-OTHERS-DETAILS
+read only fields:
+Text field one line 200 chars: name
+Text field five lines max 3000 chars: description
+test field max 300 chars: link to your product
+my feedback:
+Text field my feedback 3000 chars (changeable)
+list of other feedback (ready only)
+
+##BROWSE-PROFILES-LIST
+-list of profiles in the community
+
+##BROWSE-PROFILES-DETAILS
+-read only fields from EDIT-PROFILE
+-list of help requests
+-list of test my products
 
 ---
 
@@ -392,6 +449,17 @@ HackMatch asks:
 
 > 🎯 **Who should you meet right now?**
 
+# Target audience
+
+20-30 year old startup founders, developers, designers, product owners 
+
+# Other information for development
+
+Unicode icons are extensively used for each button and choice and also for field names when appropriate.
+This eases visual navigation and makes app more colorful.
+Design is refined, uncluttered.
+Colors are used and stored in a central location ( button normal, button accent, field name, ... )
+A nice color for target audience is used globally as an accent button color.
 ---
 
 # 🚀 HackMatch
