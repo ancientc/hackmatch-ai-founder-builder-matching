@@ -12,7 +12,7 @@ Instead of scrolling through attendee lists or relying on random conversations, 
 
 ## 🎯 The Problem
 
-There are 70+ interesting people at this hackathon.
+There are 50+ interesting people at this hackathon.
 
 The problem isn't a lack of useful people.
 
@@ -140,11 +140,11 @@ Scan the HackMatch QR code at the event.
 Tell HackMatch:
 
 * 🪪 who you are
-* 🚀 what you're building
-* 🛠️ your skills
+* 🪑 where exactly you are
 * ❤️ your interests
-* 🤲 what you can help with
-* 🧩 what you currently need
+* 🛠️ your skills
+* 🚀 what you're building (optional)
+* 🤲 what you can help with (optional)
 
 ## 3. 🧭 Choose Your Goal
 
@@ -152,13 +152,11 @@ Select:
 
 **🤝 Collaborate**
 
-**🧠 Get Help**
+**🧠 Get Help**   /   **See questions/request**
 
-or
+**🧪 Test My Product**  /  **Test the product of others**
 
-**🧪 Test My Product**
-
-## 4. 🤖 Get AI Matches
+## 4. 🤖 Get relevant Matches
 
 HackMatch identifies people with:
 
@@ -184,14 +182,41 @@ For example:
 ## 6. 👋 Meet in Real Life
 
 Find the person.
-
 Walk over.
-
 Start a conversation.
 
 ---
+# Exact screen plan
+Here screens are listed with possible connections
+Process starts with a user creating a community like "BUDAPEST AI HACKATON"
+Users can get to the intro screen by scanning a QR code or getting the link
+##INTRO 
+First screen that user sees after scannin QR code
+        basically showing the plan
+        "enter your details, find the right person"
+with an OK button the user skips to CREATE-PROFILE screeen
 
-# 🎬 The Hackathon Demo
+##CREATE-PROFILE
+* 🪪 who you are
+* 🪑 where exactly you are
+* ❤️ your interests
+* 🛠️ your skills
+* 🚀 what you're building (optional)
+* 🤲 what you can help with (optional)
+button SUBMIT checks input, if everything is all right jump to APP-MAIN-MENU
+
+##APP-MAIN-MENU
+options
+**🤝 Collaborate**
+**🧠 Get Help**   /   **See questions/request**
+**🧪 Test My Product**  /  **Test the product of others**
+** Edit own profile**  /  ** Browse other profiles **
+
+##COLLABORATE
+
+---
+
+# 🎬 The Demo
 
 The demo can happen with **real participants at the event**.
 
@@ -321,7 +346,6 @@ HackMatch can evaluate multiple signals when calculating matches:
 ```
 
 The goal isn't simply to find people who are similar.
-
 The goal is to find people who are **useful to each other**.
 
 ---
