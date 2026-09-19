@@ -225,38 +225,46 @@ Button back
 Button create new (GET-HELP-REQUEST-EDIT)
 
 ##GET-HELP-REQUEST-EDIT
+
 Text field three lines: What do you need help with?
 Button submit (to results)
 -list of comments from others
 
 ##GET-HELP-RESULTS
+
 These people may be able to help
 -results with percentages
 Button back (APP-MAIN-MENU), button reformulate request (to GET-HELP-REQUEST with same questions)
 
 ##BROWSE-HELP-REQUESTS-LIST
+
 -list of help requests
 Button back (APP-MAIN-MENU)
 
 ##BROWSE-HELP-REQUESTS-DETAILS
+
 help request fields (read only)
 my comment (changeable)
 -list of comments from others
 Button back 
 
 ##TEST-MY-PRODUCT-LIST
+
 -list of my products
 BUTTON CREATE NEW PRODUCT
 
 ##TEST-MY-PRODUCT-DETAILS (used for new product and change product)
+
 Text field one line 200 chars: name
 Text field five lines max 3000 chars: description
 test field max 300 chars: link to your product
 
 ##TEST-PRODUCTS-OF-OTHERS-LIST 
+
 -list of all products with owner and details showing (if clicked on go to 
 
 ##TEST-PRODUCTS-OF-OTHERS-DETAILS
+
 read only fields:
 Text field one line 200 chars: name
 Text field five lines max 3000 chars: description
@@ -266,9 +274,11 @@ Text field my feedback 3000 chars (changeable)
 list of other feedback (ready only)
 
 ##BROWSE-PROFILES-LIST
+
 -list of profiles in the community
 
 ##BROWSE-PROFILES-DETAILS
+
 -read only fields from EDIT-PROFILE
 -list of help requests
 -list of test my products
