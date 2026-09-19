@@ -208,17 +208,18 @@ button SUBMIT checks input, if everything is all right jump to APP-MAIN-MENU
 
 ##APP-MAIN-MENU
 
-options
 **🤝 Collaborate** COLLABORATE-RESULTS
 **🧠 Get Help** GET-HELP-REQUEST-LIST  /   **See questions/request** BROWSE-HELP-REQUESTS-LIST
 **🧪 Test My Product** TEST-MY-PRODUCT-LIST /  **Test the product of others** TEST-PRODUCTS-OF-OTHERS-LIST 
 ** Edit own profile** EDIT-PROFILE /  ** Browse other profiles ** BROWSE-PROFILES
 
 ##COLLABORATE-RESULTS
+
 Based on your interests and skills these are the people that can be interesting for you:
 results with estimated percentages
 
 ##GET-HELP-REQUEST-LIST
+
 -list of my help requests
 Button back
 Button create new (GET-HELP-REQUEST-EDIT)
