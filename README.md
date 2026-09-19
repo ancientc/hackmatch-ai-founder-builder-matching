@@ -191,13 +191,15 @@ Here screens are listed with possible connections
 Process starts with a user creating a community like "BUDAPEST AI HACKATON"
 Users can get to the intro screen by scanning a QR code or getting the link
 
-## INTRO 
+## INTRO
+
 First screen that user sees after scannin QR code
         basically showing the plan
         "enter your details, find the right person"
 with an OK button the user skips to EDIT-PROFILE screeen
 
 ## EDIT-PROFILE
+
 * 👤 name
 * 🪪 title
 * 🪑 where exactly you are
@@ -212,7 +214,7 @@ button SUBMIT checks input, if everything is all right jump to APP-MAIN-MENU
 **🤝 Collaborate** COLLABORATE-RESULTS
 **🧠 Get Help** GET-HELP-REQUEST-LIST  /   **See questions/request** BROWSE-HELP-REQUESTS-LIST
 **🧪 Test My Product** TEST-MY-PRODUCT-LIST /  **Test the product of others** TEST-PRODUCTS-OF-OTHERS-LIST 
-** Edit own profile** EDIT-PROFILE /  ** Browse other profiles ** BROWSE-PROFILES
+** Edit own profile** EDIT-PROFILE /  ** Browse other profiles ** BROWSE-PROFILES-LIST
 
 ## COLLABORATE-RESULTS
 
