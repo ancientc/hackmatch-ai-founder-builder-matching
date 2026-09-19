@@ -190,14 +190,15 @@ Start a conversation.
 Here screens are listed with possible connections
 Process starts with a user creating a community like "BUDAPEST AI HACKATON"
 Users can get to the intro screen by scanning a QR code or getting the link
-##INTRO 
+
+## INTRO 
 First screen that user sees after scannin QR code
         basically showing the plan
         "enter your details, find the right person"
-with an OK button the user skips to CREATE-PROFILE screeen
+with an OK button the user skips to EDIT-PROFILE screeen
 
-##EDIT-PROFILE
-* 🪪 name
+## EDIT-PROFILE
+* 👤 name
 * 🪪 title
 * 🪑 where exactly you are
 * ❤️ your interests
@@ -213,57 +214,57 @@ button SUBMIT checks input, if everything is all right jump to APP-MAIN-MENU
 **🧪 Test My Product** TEST-MY-PRODUCT-LIST /  **Test the product of others** TEST-PRODUCTS-OF-OTHERS-LIST 
 ** Edit own profile** EDIT-PROFILE /  ** Browse other profiles ** BROWSE-PROFILES
 
-##COLLABORATE-RESULTS
+## COLLABORATE-RESULTS
 
 Based on your interests and skills these are the people that can be interesting for you:
 results with estimated percentages
 
-##GET-HELP-REQUEST-LIST
+## GET-HELP-REQUEST-LIST
 
 -list of my help requests
 Button back
 Button create new (GET-HELP-REQUEST-EDIT)
 
-##GET-HELP-REQUEST-EDIT
+## GET-HELP-REQUEST-EDIT
 
 Text field three lines: What do you need help with?
 Button submit (to results)
 -list of comments from others
 
-##GET-HELP-RESULTS
+## GET-HELP-RESULTS
 
 These people may be able to help
 -results with percentages
 Button back (APP-MAIN-MENU), button reformulate request (to GET-HELP-REQUEST with same questions)
 
-##BROWSE-HELP-REQUESTS-LIST
+## BROWSE-HELP-REQUESTS-LIST
 
 -list of help requests
 Button back (APP-MAIN-MENU)
 
-##BROWSE-HELP-REQUESTS-DETAILS
+## BROWSE-HELP-REQUESTS-DETAILS
 
 help request fields (read only)
 my comment (changeable)
 -list of comments from others
 Button back 
 
-##TEST-MY-PRODUCT-LIST
+## TEST-MY-PRODUCT-LIST
 
 -list of my products
 BUTTON CREATE NEW PRODUCT
 
-##TEST-MY-PRODUCT-DETAILS (used for new product and change product)
+## TEST-MY-PRODUCT-DETAILS (used for new product and change product)
 
 Text field one line 200 chars: name
 Text field five lines max 3000 chars: description
 test field max 300 chars: link to your product
 
-##TEST-PRODUCTS-OF-OTHERS-LIST 
+## TEST-PRODUCTS-OF-OTHERS-LIST 
 
 -list of all products with owner and details showing (if clicked on go to 
 
-##TEST-PRODUCTS-OF-OTHERS-DETAILS
+## TEST-PRODUCTS-OF-OTHERS-DETAILS
 
 read only fields:
 Text field one line 200 chars: name
@@ -273,16 +274,15 @@ my feedback:
 Text field my feedback 3000 chars (changeable)
 list of other feedback (ready only)
 
-##BROWSE-PROFILES-LIST
+## BROWSE-PROFILES-LIST
 
 -list of profiles in the community
 
-##BROWSE-PROFILES-DETAILS
+## BROWSE-PROFILES-DETAILS
 
 -read only fields from EDIT-PROFILE
 -list of help requests
 -list of test my products
-
 ---
 
 # 🎬 The Demo
