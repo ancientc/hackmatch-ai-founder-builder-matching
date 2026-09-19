@@ -13,6 +13,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 DB_PATH = Path(os.environ.get("HACKMATCH_DB_PATH", "/data/db.json"))
+if not DB_PATH.parent.exists():
+    try:
+        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        DB_PATH = Path("db.json")
 LOCK = threading.Lock()
 EMPTY: dict[str, list[Any]] = {"communities": [], "profiles": [], "requests": [], "products": []}
 
